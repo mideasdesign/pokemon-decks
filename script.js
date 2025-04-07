@@ -2,8 +2,8 @@ let allPokemons = [];
 
 async function init() {
     const baseData = await fetchBasePokemons();
-    await fetchDetailedPokemons(baseData);
-    renderPokemons();
+    await fetchBaseDataPokemons(baseData);
+    renderBaseCardPokemons();
 }
 
 async function fetchBasePokemons() {
@@ -12,7 +12,7 @@ async function fetchBasePokemons() {
     return data.results; // Array mit { name, url }
 }
 
-async function fetchDetailedPokemons(baseData) {
+async function fetchBaseDataPokemons(baseData) {
     const promises = baseData.map(async (pokemon) => {
         const response = await fetch(pokemon.url);
         const detail = await response.json();
@@ -20,20 +20,19 @@ async function fetchDetailedPokemons(baseData) {
             name: detail.name,
             image: detail.sprites.other["official-artwork"].front_default,
             types: detail.types.map(t => t.type.name),
+            base: detail.stats.map(s => s.base_stat),
             abilities: detail.abilities.map(a => a.ability.name),
             id: detail.id,
-            color: detail.color,
             weight: detail.weight,
             height: detail.height,
-            location:detail.location_area_encounters,
-
         };
     });
 
     allPokemons = await Promise.all(promises);
 }
 
-function renderPokemons() {
+
+function renderBaseCardPokemons() {
     const container = document.getElementById('pokemon-list');
     container.innerHTML = '';
 
@@ -41,13 +40,9 @@ function renderPokemons() {
         container.innerHTML += `
             <div class="card" onclick="showDetails(${pokemon.id})">
                 <img src="${pokemon.image}" alt="${pokemon.name}">
-                <h3>${pokemon.name} - ${pokemon.stats}</h3>
-                <p> ${pokemon.color}</p>
+                <h3 class="${pokemon.types[0]}">${pokemon.name} - #${pokemon.id}</h3>
+                <p> ${pokemon.base}</p>
                 <p>Typ: ${pokemon.types.join(', ')}</p>
-                <p>location: ${pokemon.location} </p>
-                <p>weight: ${pokemon.weight}</p>
-                <p>height: ${pokemon.height}</p>
-
             </div>
         `;
     });
