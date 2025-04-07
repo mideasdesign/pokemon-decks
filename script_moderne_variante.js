@@ -26,21 +26,20 @@ async function fetchBaseDataPokemons(baseData) {
         };
     });
     const newPokemons = await Promise.all(promises);
-    for (let i = 0; i < newPokemons.length; i++) {
-        allPokemons.push(newPokemons[i]);
-    }
+    allPokemons.push(...newPokemons);
 }
 
 function renderBaseCardPokemons() {
     const container = document.getElementById('pokemon-list');
-    container.innerHTML = '';
-    for (let i = 0; i < allPokemons.length; i++) {
-        const pokemon = allPokemons[i];
+    container.innerHTML = ''; // Beim ersten Laden Liste leeren
+    allPokemons.forEach(pokemon => {
         container.innerHTML += getBaseCardTemplate(pokemon);
-    }
+    });
 }
 
 async function loadMorePokemons() {
+/*     if (pageOffset >= 100) return; */
+
     pageOffset += 20;
     const baseData = await fetchBasePokemons();
     const promises = baseData.map(async (pokemon) => {
@@ -56,35 +55,10 @@ async function loadMorePokemons() {
     });
 
     const newPokemons = await Promise.all(promises);
-        for (let i = 0; i < newPokemons.length; i++) {
-            allPokemons.push(newPokemons[i]);
-        }
-        const container = document.getElementById('pokemon-list');
-        for (let i = 0; i < newPokemons.length; i++) {
-            container.innerHTML += getBaseCardTemplate(newPokemons[i]);
-        }
-};
+    allPokemons.push(...newPokemons);
 
-async function loadMorePokemons() {
-    pageOffset += 20;
-    const baseData = await fetchBasePokemons();
-    const promises = baseData.map(async (pokemon) => {
-        const response = await fetch(pokemon.url);
-        const detail = await response.json();
-        return {
-            name: detail.name,
-            image: detail.sprites.other["official-artwork"].front_default,
-            types: detail.types.map(t => t.type.name),
-            abilities: detail.abilities.map(a => a.ability.name),
-            id: detail.id,
-        };
-    });
-    const newPokemons = await Promise.all(promises);
-    for (let i = 0; i < newPokemons.length; i++) {
-        allPokemons.push(newPokemons[i]);
-    }
     const container = document.getElementById('pokemon-list');
-    for (let i = 0; i < newPokemons.length; i++) {
-        container.innerHTML += getBaseCardTemplate(newPokemons[i]);
-    }
+    newPokemons.forEach(pokemon => {
+        container.innerHTML += getBaseCardTemplate(pokemon);
+    });
 }
