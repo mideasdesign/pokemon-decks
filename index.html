@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Pokémon</title>
+    <script src="./assets/js/template.js"></script>
     <script src="./script.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -12,11 +13,8 @@
 <body onload="init()"> 
   <h1 class="text-6xl text-blue-800">Pokémon</h1>
   <div class="wrapper">
-    <div class="grid grid-flow-col gap-4">
-    <ul id="pokemon-list"></ul>
-
-
-    </div>
+    <div id="pokemon-list" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4"></div>
+    <button onclick="loadMorePokemons()" class="my-4 px-4 py-2 bg-blue-500 text-white rounded">Mehr laden</button>
   </div>
 </body>
 </html>
