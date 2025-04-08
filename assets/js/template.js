@@ -15,7 +15,7 @@ function getDetailedCardTemplate(pokemon, species) {
         <div class="card text-white">
             <h3 class="text-3xl">${species.name} - #${species.id}</h3>
             <p class="text-xl">egg group: ${species.egg_groups.map(e => e.name).join(', ')}</p>
-            <p class="text-xl">description: ${species.flavor_text}</p>
+            <p class="text-xl">description: ${species.flavor_text_entries[0].flavor_text}</p>
             <button onclick="closeModal()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded">Schließen</button>
         </div>
     `;

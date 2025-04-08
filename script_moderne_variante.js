@@ -15,7 +15,7 @@ async function fetchBasePokemons() {
         console.log(data);
         return data.results; // Array mit { name, url }
     } catch (error) {
-        console.error('Fehler beim Laden der Spezies-Daten:', error);
+        console.error('Fehler beim Laden der Daten:', error);
     }
 }
 async function fetchBaseDataPokemons(baseData) {
@@ -67,18 +67,22 @@ async function loadMorePokemons() {
 
 async function fetchPokemonSpecies(id) {
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/1/`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
         const species = await response.json();
         const pokemon = allPokemons.find(p => p.id === id);
         const modal = document.getElementById('pokemon-modal');
         const detailContainer = document.getElementById('detail-card');
         detailContainer.innerHTML = getDetailedCardTemplate(pokemon, species);
         modal.classList.remove('close');
+        console.log(species);
     } catch (error) {
         console.error('Fehler beim Laden der Spezies-Daten:', error);
     }
 }
 
+function closeModal(event) {
+    document.getElementById('pokemon-modal').classList.add('close');
+}
 function modalOverlay(event){
     let toggleRef = document.getElementById('pokemon-modal')
     toggleRef.classList.toggle('close');
