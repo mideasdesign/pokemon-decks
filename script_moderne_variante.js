@@ -18,6 +18,7 @@ async function fetchBasePokemons() {
         console.error('Fehler beim Laden der Daten:', error);
     }
 }
+
 async function fetchBaseDataPokemons(baseData) {
     const promises = baseData.map(async (pokemon) => {
         const response = await fetch(pokemon.url);
@@ -79,10 +80,10 @@ async function fetchPokemonSpecies(id) {
         console.error('Fehler beim Laden der Spezies-Daten:', error);
     }
 }
-
+/* 
 function closeModal(event) {
     document.getElementById('pokemon-modal').classList.add('close');
-}
+} */
 function modalOverlay(event){
     let toggleRef = document.getElementById('pokemon-modal')
     toggleRef.classList.toggle('close');

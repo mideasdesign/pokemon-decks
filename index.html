@@ -12,16 +12,16 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body onload="init()"> 
-  <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-black/80">
-    <div onclick="closeModal()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
-    <div class="z-[950] p-6 bg-gray-900 rounded-3xl max-w-xl w-full shadow-2xl" onclick="event.stopPropagation()">
-        <div id="detail-card"></div>
+  <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-gray-800/80">
+    <div onclick="modalOverlay()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
+    <div class="z-[950] p-6 bg-gray-200 rounded-3xl max-w-xl w-full shadow-2xl" onclick="event.stopPropagation()">
+        <div id="detail-card" class="p-6"></div>
     </div>
 </div>
 
   <div class="flex flex-col justify-center items-center w-dvw px-4"><img src="./assets/images/International_Pokémon_logo.svg" class="h-40 w-auto" alt=" Pokemon Logo"></div>
   <div class="flex flex-col justify-center items-center w-dvw px-4">
-    <div id="pokemon-list" class="grid grid-cols-1 gap-6 p-4 max-w-5xl"></div>
+    <div id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-6 p-4 max-w-5xl"></div>
     <button onclick="loadMorePokemons()" class="my-4 px-4 py-2 bg-blue-500 text-white rounded text-5xl hover:cursor-pointer">Mehr laden</button>
     <br>
     <br>
