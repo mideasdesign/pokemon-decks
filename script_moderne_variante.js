@@ -44,11 +44,13 @@ function renderBaseCardPokemons() {
 }
 
 async function loadMorePokemons() {
+    document.getElementById('spinner').classList.remove('hidden');
     pageOffset += 20;
     const baseData = await fetchBasePokemons();
     const promises = baseData.map(async (pokemon) => {
         const response = await fetch(pokemon.url);
         const detail = await response.json();
+        document.getElementById('spinner').classList.remove('hidden');
         return {
             name: detail.name,
             image: detail.sprites.other["official-artwork"].front_default,
@@ -56,6 +58,7 @@ async function loadMorePokemons() {
             abilities: detail.abilities.map(pkmsa => pkmsa.ability.name),
             id: detail.id,
         };
+        
     });
 
     const newPokemons = await Promise.all(promises);
