@@ -14,15 +14,8 @@ async function init() {
 async function fetchBasePokemons() {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=2`);
     const data = await response.json();
-    return data.results; // Array mit { name, url }
+    fetchBaseDataPokemons(data.results); // Array mit { name, url }
 };
-
-async function fetchPokemonSpecies() {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=2`);
-    const speciesData = await response.json();
-    return speciesData.results; // Array mit { name, url }
-};
-
 async function fetchBaseDataPokemons(baseData) {
     const promises = baseData.map(async (pokemon) => {
         const response = await fetch(pokemon.url);
@@ -39,6 +32,12 @@ async function fetchBaseDataPokemons(baseData) {
     for (let indexNewPokemons = 0; indexNewPokemons < newPokemons.length; indexNewPokemons++) {
         allPokemons.push(newPokemons[indexNewPokemons]);
     }
+};
+
+async function fetchPokemonSpecies() {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=2`);
+    const speciesData = await response.json();
+    fetchPokemonSpeciesData(speciesData.results); // Array mit { name, url }
 };
 
 async function fetchPokemonSpeciesData(speciesData) {

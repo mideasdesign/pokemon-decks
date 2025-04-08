@@ -10,7 +10,7 @@ async function init() {
 async function fetchBasePokemons() {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=20`);
     const data = await response.json();
-    return data.results; // Array mit { name, url }
+    fetchBaseDataPokemons(data.results); // Array mit { name, url }
 }
 
 async function fetchBaseDataPokemons(baseData) {
@@ -61,4 +61,41 @@ async function loadMorePokemons() {
     newPokemons.forEach(pokemon => {
         container.innerHTML += getBaseCardTemplate(pokemon);
     });
+};
+
+async function fetchPokemonSpecies() {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=2`);
+    const speciesData = await response.json();
+    fetchPokemonSpeciesData(speciesData.results); // Array mit { name, url }
+};
+
+async function fetchPokemonSpeciesData(speciesData) {
+    const speciesPromises = speciesData.map(async (species) => {
+        const response = await fetch(species.url);
+        const speciesDetail = await response.json();
+        return {
+            name: speciesDetail.name,
+            egg_groups: speciesDetail.egg_groups.map(seg => seg.name),
+            growth_rate: speciesDetail.name,
+            habitat: speciesDetail.habitat?.name || 'unkown',
+            id: speciesDetail.id,
+        };
+    });
+    const newPokemonsSpecies = await Promise.all(speciesPromises);
+    for (let indexNewPokemonsSpecies = 0; indexNewPokemonsSpecies < newPokemonsSpecies.length; indexNewPokemonsSpecies++) {
+        allPokemons.push(newPokemonsSpecies[indexNewPokemonsSpecies]);
+    }
+};
+
+function renderDetailedCardPokemons() {
+    const speciesContainer = document.getElementById('detail-card');
+    for (let indexSpecies = 0; indexSpecies < pokemonSpecies.length; indexSpecies++) {
+        const species = pokemonSpecies[indexSpecies];
+        speciesContainer.innerHTML += getDetailedCardTemplate(species);
+    }
 }
+
+function modalOverlay(event){
+    let toggleRef = document.getElementById('pokemon-modal')
+    toggleRef.classList.toggle('close');
+  };
