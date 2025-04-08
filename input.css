@@ -21,3 +21,6 @@
 .grass{
     background-color: var(--color-bug);
 }
+.close{
+    display: none;
+}

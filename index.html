@@ -12,15 +12,12 @@
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body onload="init()"> 
-  <div id="pokemon-modal" class=" w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close">
-    <div id="modal-content" class="overlay z-[950] px-5 flex h-96 justify-center items-center w-full">
-      <div onclick="event.stopPropagation()" class="flex flex-col even w-full justify-center items-center p-6 base:w-2xl shadow-2xl bg-gray-900 rounded-3xl">
-        <div id="detail-card" class="w-3xs p-5 rounded-2xl">
-
-        </div>
-      </div>
+  <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-black/80">
+    <div onclick="closeModal()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
+    <div class="z-[950] p-6 bg-gray-900 rounded-3xl max-w-xl w-full shadow-2xl" onclick="event.stopPropagation()">
+        <div id="detail-card"></div>
     </div>
-  </div>
+</div>
 
   <h1 class="text-6xl text-green-600">Pokémon</h1>
   <div class=" max-w-7xl">
