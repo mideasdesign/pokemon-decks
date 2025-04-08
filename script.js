@@ -12,13 +12,13 @@ async function init() {
 }
 
 async function fetchBasePokemons() {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=20`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=2`);
     const data = await response.json();
     return data.results; // Array mit { name, url }
 };
 
 async function fetchPokemonSpecies() {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=20`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=2`);
     const speciesData = await response.json();
     return speciesData.results; // Array mit { name, url }
 };
@@ -100,28 +100,4 @@ async function loadMorePokemons() {
             container.innerHTML += getBaseCardTemplate(newPokemons[indexPokemons]);
         }
 };
-
-async function loadMorePokemons() {
-    pageOffset += 20;
-    const speciesData = await fetchPokemonSpeciesData();
-    const promises = speciesData.map(async (species) => {
-        const response = await fetch(species.url);
-        const speciesDetail = await response.json();
-        return {
-            name: speciesDetail.name,
-            image: speciesDetail.sprites.other["official-artwork"].front_default,
-            types: speciesDetail.types.map(t => t.type.name),
-            abilities: speciesDetail.abilities.map(a => a.ability.name),
-            id: speciesDetail.id,
-        };
-    });
-    const newPokemons = await Promise.all(promises);
-    for (let indexNewPokemons = 0; indexNewPokemons < newPokemons.length; indexNewPokemons++) {
-        allPokemons.push(newPokemons[indexNewPokemons]);
-    }
-    const container = document.getElementById('pokemon-list');
-    for (let indexPokemons = 0; indexPokemons < newPokemons.length; indexPokemons++) {
-        container.innerHTML += getBaseCardTemplate(newPokemons[indexPokemons]);
-    }
-}
 
