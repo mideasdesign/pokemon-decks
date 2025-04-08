@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme{
+--color-grass: oklch(0.67 0.1 116 / 71%);
+--color-fire: oklch(0.58 0.245 27.325 / 71%);
+--color-water: oklch(0.51 0.262 276.966 / 71%);
+--color-bug: oklch(0.67 0.1 116 / 71%);
+--color-flying: oklch(0.67 0.1 116 / 71%);
+--color-poison: oklch(0.67 0.1 116 / 71%);
+--color-normal: oklch(0.67 0.1 116 / 71%);
+}
+.grass{
+    background-color: var(--color-grass);
+}
+.fire{
+    background-color: var(--color-fire);
+}
+.water{
+    background-color: var(--color-water);
+}
+.grass{
+    background-color: var(--color-bug);
+}

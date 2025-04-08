@@ -12,13 +12,13 @@ async function init() {
 }
 
 async function fetchBasePokemons() {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=2`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=20`);
     const data = await response.json();
     return data.results; // Array mit { name, url }
 };
 
 async function fetchPokemonSpecies() {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=2`);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species?offset=${pageOffset}&limit=20`);
     const speciesData = await response.json();
     return speciesData.results; // Array mit { name, url }
 };
@@ -42,7 +42,7 @@ async function fetchBaseDataPokemons(baseData) {
 };
 
 async function fetchPokemonSpeciesData(speciesData) {
-    const promises = speciesData.map(async (species) => {
+    const speciesPromises = speciesData.map(async (species) => {
         const response = await fetch(species.url);
         const speciesDetail = await response.json();
         return {
@@ -53,6 +53,10 @@ async function fetchPokemonSpeciesData(speciesData) {
             id: speciesDetail.id,
         };
     });
+    const newPokemonsSpecies = await Promise.all(speciesPromises);
+    for (let indexNewPokemonsSpecies = 0; indexNewPokemonsSpecies < newPokemonsSpecies.length; indexNewPokemonsSpecies++) {
+        allPokemons.push(newPokemonsSpecies[indexNewPokemonsSpecies]);
+    }
 };
 
 function renderBaseCardPokemons() {
@@ -99,16 +103,16 @@ async function loadMorePokemons() {
 
 async function loadMorePokemons() {
     pageOffset += 20;
-    const baseData = await fetchBasePokemons();
-    const promises = baseData.map(async (pokemon) => {
-        const response = await fetch(pokemon.url);
-        const detail = await response.json();
+    const speciesData = await fetchPokemonSpeciesData();
+    const promises = speciesData.map(async (species) => {
+        const response = await fetch(species.url);
+        const speciesDetail = await response.json();
         return {
-            name: detail.name,
-            image: detail.sprites.other["official-artwork"].front_default,
-            types: detail.types.map(t => t.type.name),
-            abilities: detail.abilities.map(a => a.ability.name),
-            id: detail.id,
+            name: speciesDetail.name,
+            image: speciesDetail.sprites.other["official-artwork"].front_default,
+            types: speciesDetail.types.map(t => t.type.name),
+            abilities: speciesDetail.abilities.map(a => a.ability.name),
+            id: speciesDetail.id,
         };
     });
     const newPokemons = await Promise.all(promises);

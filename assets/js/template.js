@@ -1,9 +1,11 @@
 function getBaseCardTemplate(pokemon){
     return /* html */`
-        <div class="card" onclick="showDetails(${pokemon.id})">
+        <div class="card grid grid-cols-2 border border-red-700 rounded-2xl p-5 ${pokemon.types[0]}" onclick="showDetails(${pokemon.id})">
             <img src="${pokemon.image}" alt="${pokemon.name}">
-            <h3 class="${pokemon.types[0]}">${pokemon.name} - #${pokemon.id}</h3>
-            <p>Typ: ${pokemon.types.join(', ')}</p>
+            <div class="flex flex-col justify-between">
+                <h3 class="text-7xl text-gray-800">${pokemon.name}</h3>
+                <p class="text-5xl  text-gray-800">Typ: ${pokemon.types.join(', ')}</p>
+            </div>
         </div>
     `
 };
