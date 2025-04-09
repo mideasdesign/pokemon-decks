@@ -121,6 +121,24 @@ function showSearchedPokemonDetails(pokemon, species) {
     modal.classList.remove('close');
 }
 
+function prevPic (index){
+    if(index > 0){
+        modalWindow(index -1)
+    }
+    else {
+            modalWindow(photos.length -1);
+        }
+}
+
+function nextPic (index){
+    if(index < photos.length -1){
+        modalWindow(index +1);
+    }
+    else {
+        modalWindow(0);
+    }
+}
+
 function modalOverlay(event){
     let toggleRef = document.getElementById('pokemon-modal')
     toggleRef.classList.toggle('close');

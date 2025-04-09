@@ -18,8 +18,11 @@ function getDetailedCardTemplate(pokemon, species) {
             <div>
                 <h4 class="text-4xl my-5 sm:text-2xl">${species.flavor_text_entries[0].flavor_text}</h4>
                 <div class="grid grid-cols-2 justify-between gap-5 text-gray-700">
+                    <h4 class="text-4xl sm:text-2xl">generation:</h4> <span class="text-2xl text-gray-700">${species.generation.name}</span>
+                    <h4 class="text-4xl sm:text-2xl">abilities:</h4> <span class="text-2xl text-gray-700">${pokemon.abilities.map(pkmsa => pkmsa.name).join(', ')}</span>
                     <h4 class="text-4xl sm:text-2xl">egg group:</h4> <span class="text-2xl text-gray-700">${species.egg_groups.map(e => e.name).join(', ')}</span>
                     <h4 class="text-4xl sm:text-2xl">growth rate:</h4> <span class="text-2xl text-gray-700">${species.growth_rate.name}</span>
+                    <h4 class="text-4xl sm:text-2xl">habitat:</h4> <span class="text-2xl text-gray-700">${species.habitat.name}</span>
                 </div>
             </div>
         </div>
