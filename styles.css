@@ -211,6 +211,18 @@
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
+  .z-\[-250\] {
+    z-index: -250;
+  }
+  .z-\[-300\] {
+    z-index: -300;
+  }
+  .z-\[-350\] {
+    z-index: -350;
+  }
+  .z-\[0\] {
+    z-index: 0;
+  }
   .z-\[850\] {
     z-index: 850;
   }
