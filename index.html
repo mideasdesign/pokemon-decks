@@ -14,19 +14,31 @@
 <body onload="init()"> 
   <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-gray-800/80">
     <div onclick="modalOverlay()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
-    <div class="z-[950] p-6 bg-gray-200 rounded-3xl max-w-xl w-full shadow-2xl" onclick="event.stopPropagation()">
-        <div id="detail-card" class="p-6"></div>
+    <div class="z-[950] p-4 bg-gray-200 rounded-3xl max-w-xl w-full shadow-2xl" onclick="event.stopPropagation()">
+      <div id="detail-card" class="p-3"></div>
     </div>
-</div>
-
-  <div class="flex justify-center items-center w-dvw px-4"><img src="./assets/images/international_pokemon_logo.svg" class="h-40 w-auto my-8" alt=" Pokemon Logo"></div>
+  </div>
   <div id="spinner" class="z-[850] flex flex-col bg-gray-800/30 w-dvw h-dvh justify-center items-center hide">
-    <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-25 w-auto" alt="Lade..." />
-    <p class="text-2xl mt-5 sm:text-lg">lade Pokemon</p>
+    <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-25 w-auto" alt="load..." />
+    <p class="text-2xl mt-5 sm:text-lg">load Pokémon</p>
   </div>
-  <div class="flex flex-col justify-center items-center w-dvw px-4">
-    <div id="pokemon-list" class="grid grid-cols-0 sm:grid-cols-2  md:grid-cols-4 gap-6 p-4 max-w-5xl"></div>
-    <button onclick="loadMorePokemons()" class="my-4 px-4 py-2 bg-blue-500 text-white rounded text-5xl hover:cursor-pointer">Mehr laden</button>
-  </div>
+  <main class="flex flex-col justify-center items-center w-dvw px-4">
+    <div class="flex justify-center items-center w-dvw px-4">
+      <img src="./assets/images/international_pokemon_logo.svg" class="h-40 w-auto my-8" alt=" Pokemon Logo">
+    </div>
+    <div id="search">
+      <label for="search-input" class="text-gray-800 text-lg mr-4">suche dein Pokémon</label>
+      <input type="text" id="search-input" class="px-4 py-2 rounded-xl text-base text-gray-700 border border-gray-600 mr-4" placeholder="enter a Pokémon name">
+      <button class="px-4 py-2 rounded-xl text-base border border-red-600 bg-red-600 text-gray-300">search</button>
+    </div>
+    <div id="spinner" class="z-[850] flex flex-col bg-gray-800/30 w-dvw h-dvh justify-center items-center hide">
+      <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-25 w-auto" alt="Loading..." />
+      <p class="text-2xl mt-5 sm:text-lg">loading Pokémon</p>
+    </div>
+    <div class="flex flex-col justify-center items-center w-dvw my-9 px-4">
+      <div id="pokemon-list" class="grid grid-cols-0 sm:grid-cols-2  md:grid-cols-4 gap-6 p-4 max-w-5xl"></div>
+      <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl text-4xl border border-red-600 bg-red-600 text-gray-300 hover:cursor-pointer">load more</button>
+    </div>
+  </main>
 </body>
 </html>

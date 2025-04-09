@@ -13,9 +13,9 @@ async function fetchBasePokemons() {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=2`);
         const data = await response.json();
         console.log(data);
-        return data.results; // Array mit { name, url }
+        return data.results;
     } catch (error) {
-        console.error('Fehler beim Laden der Daten:', error);
+        console.error('Error loading base data:', error);
     }
 }
 
@@ -37,7 +37,7 @@ async function fetchBaseDataPokemons(baseData) {
 
 function renderBaseCardPokemons() {
     const container = document.getElementById('pokemon-list');
-    container.innerHTML = ''; // Beim ersten Laden Liste leeren
+    container.innerHTML = ''; 
     allPokemons.forEach(pokemon => {
         container.innerHTML += getBaseCardTemplate(pokemon);
     });
@@ -63,10 +63,10 @@ async function loadMorePokemons() {
     allPokemons.push(...newPokemons);
     let container = document.getElementById('pokemon-list');
     newPokemons.forEach(pokemon => {
-
         container.innerHTML += getBaseCardTemplate(pokemon);        
-        document.getElementById('spinner').classList.add('hide');
+        
     });
+    document.getElementById('spinner').classList.add('hide');
 };
 
 async function fetchPokemonSpecies(id) {
@@ -82,7 +82,7 @@ async function fetchPokemonSpecies(id) {
         modal.classList.remove('close');
         console.log(species);
     } catch (error) {
-        console.error('Fehler beim Laden der Spezies-Daten:', error);
+        console.error('Error loading species data:', error);
     }
 }
 
