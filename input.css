@@ -73,6 +73,6 @@
     to   { transform: rotate(360deg); }
   }
   
-  .hide-spinner {
+  .hide {
     display: none;
   }
