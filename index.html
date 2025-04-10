@@ -14,6 +14,10 @@
 <body onload="init()"> 
   <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-gray-800/80">
     <div onclick="modalOverlay()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
+    <div id="spinner" class="z-[950] flex flex-col justify-center items-center hide">
+      <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-25 w-auto" alt="Loading..." />
+      <p class="text-2xl mt-5 sm:text-lg">loading Pokémon</p>
+    </div>
     <div class="z-[950] p-4 bg-gray-200 rounded-3xl max-w-xl w-full shadow-2xl" onclick="event.stopPropagation()">
       <div id="detail-card" class="p-3"></div>
     </div>

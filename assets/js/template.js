@@ -1,6 +1,6 @@
 function getBaseCardTemplate(pokemon) {
     return /* html */`
-        <div class="z-[0] card grid gap-4 border rounded-2xl  shadow-lg p-5 ${pokemon.types[0]}" onclick="fetchPokemonSpecies(${pokemon.id})">
+        <div class="z-[0] card grid gap-4 border rounded-2xl  shadow-lg p-5 ${pokemon.types[0]} hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
             <img src="${pokemon.image}" alt="${pokemon.name}">
             <div class="flex flex-col justify-between items-center">
                 <h3 class="text-7xl sm:text-3xl text-gray-800">${pokemon.name}</h3>
@@ -28,7 +28,7 @@ const entry = species.flavor_text_entries.find(lang => lang.language.name === "e
                 </div>
             </div>
             <div id="pagination" class="flex justify-between">
-                <button id="prevPkm" onclick="fetchPokemonSpecies(${species.id -1})" class="text-3xl text-gray-300"> < </button> <button class="text-3xl text-gray-300" onclick="fetchPokemonSpecies(${species.id +1})" id="nextPkm"> > </button>
+                <button id="prevPkm" onclick="fetchPokemonDataAndRender(${pokemon.id - 1})" class="text-5xl text-gray-300 hover:cursor-pointer"> < </button> <button class="text-5xl text-gray-300 hover:cursor-pointer" onclick="fetchPokemonDataAndRender(${pokemon.id + 1})" id="nextPkm"> > </button>
             </div>
         </div>
     `;

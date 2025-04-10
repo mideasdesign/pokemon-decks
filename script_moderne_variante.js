@@ -89,64 +89,46 @@ async function fetchPokemonSpecies(id) {
 async function searchPokemons() {
     const searchRef = document.getElementById('search-input').value.toLowerCase().trim();
     try {
-        const species = await fetchPokemonSpeciesData(searchRef);
-        const pokemon = await fetchPokemonData(searchRef);
-        showSearchedPokemonDetails(pokemon, species);
+        const species = await fetchPokemonDataAndRender(searchRef);
+        const pokemon = await fetchPokemonDataAndRender(searchRef);
+        fetchPokemonDataAndRender(pokemon, species);
     } catch (error) {
         console.error('Error loading Pokémon data:', error);
     }
 }
 
-async function fetchPokemonSpeciesData(nameOrId) {
-    const resSpecies = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameOrId}/`);
-    return await resSpecies.json();
+async function fetchPokemonDataAndRender(id) {
+    try {
+        const pokemon = await fetchPokemonDetail(id);
+        const species = await fetchPokemonSpeciesDetail(id);
+        renderPokemonDetailCard(pokemon, species);
+    } catch (error) {
+        console.error('Error loading Pokémon data:', error);
+    }
 }
 
-async function fetchPokemonData(nameOrId) {
-    const resPkms = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}/`);
-    const data = await resPkms.json();
+async function fetchPokemonDetail(id) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const data = await response.json();
     return {
-        id: data.id,
         name: data.name,
         image: data.sprites.other["official-artwork"].front_default,
         types: data.types.map(t => t.type.name),
-        abilities: data.abilities.map(a => a.ability.name),
+        abilities: data.abilities.map(a => a.ability),
+        id: data.id,
     };
 }
 
-function showSearchedPokemonDetails(pokemon, species) {
-    const modal = document.getElementById('pokemon-modal');
-    const detailContainer = document.getElementById('detail-card');
-    detailContainer.innerHTML = getDetailedCardTemplate(pokemon, species);
-    modal.classList.remove('close');
+async function fetchPokemonSpeciesDetail(id) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
+    return await response.json();
 }
 
-/* function prevPkm (pokemon, species){
-    if(species.id > 0){
-        console.log(newSpeciesId, newPokemonId);
-        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
-    }
-    else {
-        let newSpeciesId = species -1;
-        let newPokemonId = pokemon -1;
-        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
-        }
+function renderPokemonDetailCard(pokemon, species) {
+    const container = document.getElementById('detail-card');
+    container.innerHTML = getDetailedCardTemplate(pokemon, species);
+    document.getElementById('pokemon-modal').classList.remove('close');
 }
-
-function nextPkm (pokemon, species){
-    if(species.id < species.length -1){
-        let newSpeciesId = species +1;
-        let newPokemonId = pokemon +1;
-        console.log(newSpeciesId, newPokemonId);
-        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
-    }
-    else {
-        let newSpeciesId = species +1;
-        let newPokemonId = pokemon +1;
-        console.log(newSpeciesId, newPokemonId);
-        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
-    }
-} */
 
 function modalOverlay(event){
     let toggleRef = document.getElementById('pokemon-modal')
