@@ -70,7 +70,7 @@ async function loadMorePokemons() {
 };
 
 async function fetchPokemonSpecies(id) {
-/*     document.getElementById('spinner').classList.remove('hide'); */
+   document.getElementById('spinner').classList.remove('hide');
     try {
         let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
         let species = await response.json();
@@ -78,7 +78,7 @@ async function fetchPokemonSpecies(id) {
         let modal = document.getElementById('pokemon-modal');
         let detailContainer = document.getElementById('detail-card');
         detailContainer.innerHTML = getDetailedCardTemplate(pokemon, species);
-/*         document.getElementById('spinner').classList.add('hide'); */
+        document.getElementById('spinner').classList.add('hide'); 
         modal.classList.remove('close');
         console.log(species);
     } catch (error) {
@@ -121,14 +121,15 @@ function showSearchedPokemonDetails(pokemon, species) {
     modal.classList.remove('close');
 }
 
-function prevPkm (pokemon, species){
+/* function prevPkm (pokemon, species){
     if(species.id > 0){
-        fetchPokemonSpeciesData(species -1);
-        fetchPokemonData(pokemon -1);
+        console.log(newSpeciesId, newPokemonId);
+        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
     }
     else {
-        fetchPokemonSpeciesData(species -1);
-        fetchPokemonData(pokemon -1);
+        let newSpeciesId = species -1;
+        let newPokemonId = pokemon -1;
+        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
         }
 }
 
@@ -136,17 +137,16 @@ function nextPkm (pokemon, species){
     if(species.id < species.length -1){
         let newSpeciesId = species +1;
         let newPokemonId = pokemon +1;
-        fetchPokemonSpeciesData(newSpeciesId);
-        fetchPokemonData(newPokemonId);
-
+        console.log(newSpeciesId, newPokemonId);
+        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
     }
     else {
         let newSpeciesId = species +1;
         let newPokemonId = pokemon +1;
-        fetchPokemonSpeciesData(newSpeciesId);
-        fetchPokemonData(newPokemonId);
+        console.log(newSpeciesId, newPokemonId);
+        showSearchedPokemonDetails(newPokemonId, newSpeciesId);
     }
-}
+} */
 
 function modalOverlay(event){
     let toggleRef = document.getElementById('pokemon-modal')
