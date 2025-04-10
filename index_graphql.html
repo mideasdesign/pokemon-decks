@@ -2,66 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pokémon GraphQL Search</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <style>
-    body { font-family: sans-serif; text-align: center; padding: 2rem; }
-    img { max-width: 200px; }
-    .pokemon-card { border: 1px solid #ccc; padding: 1rem; border-radius: 12px; display: inline-block; }
+      .monster-scalup>img{
+        transition: all 1s ease-in-out;
+  }
+  .monster-scalup>img:hover{
+    transform: scale(1.3); 
+  }
+  img{
+    width:200px;  
+    height:200px;
+  }
   </style>
 </head>
 <body>
-  <h1>🔍 Pokémon Suche (GraphQL)</h1>
-  <input type="text" id="search" placeholder="z. B. Pikachu" />
-  <button onclick="searchPokemon()">Suchen</button>
-
-  <div id="result" class="pokemon-card" style="margin-top:2rem;"></div>
-
-  <script>
-    async function searchPokemon() {
-      const name = document.getElementById('search').value.trim();
-      const resultEl = document.getElementById('result');
-      resultEl.innerHTML = '⏳ Suche...';
-
-      const query = `
-        query {
-          pokemon(name: "${name}") {
-            name
-            image
-            types
-            attacks {
-              special {
-                name
-                damage
-              }
-            }
-          }
-        }
-      `;
-
-      const response = await fetch('https://graphql-pokemon2.vercel.app', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-      });
-
-      const data = await response.json();
-      const pokemon = data.data.pokemon;
-
-      if (!pokemon) {
-        resultEl.innerHTML = `❌ Kein Pokémon mit dem Namen "${name}" gefunden.`;
-        return;
-      }
-
-      resultEl.innerHTML = `
-        <h2>${pokemon.name}</h2>
-        <img src="${pokemon.image}" alt="${pokemon.name}" />
-        <p><strong>Typen:</strong> ${pokemon.types.join(', ')}</p>
-        <h3>⚡ Spezial-Attacken:</h3>
-        <ul>
-          ${pokemon.attacks.special.map(att => `<li>${att.name} (${att.damage} Schaden)</li>`).join('')}
-        </ul>
-      `;
-    }
-  </script>
+  <div class=".monster-scalup">
+    <img src="./assets/images/pokemon-full-ball.svg" alt="">
+  </div>
 </body>
 </html>

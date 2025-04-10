@@ -1,8 +1,8 @@
 function getBaseCardTemplate(pokemon) {
     return /* html */`
-        <div class="z-[0] card grid gap-4 border rounded-2xl border-gray-200 shadow-lg p-2  hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
-            <div class="rounded-2xl p-3 ${pokemon.types[0]}">  
-                <img src="${pokemon.image}" alt="${pokemon.name}">
+        <div class=" monster-scalup z-[0] card grid gap-4 border rounded-2xl border-gray-200 shadow-lg p-2  hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
+        <div class="rounded-2xl p-3 ${pokemon.types[0]}">  
+                <img src="${pokemon.image}" alt="${pokemon.name}" class="">
                 <div class="flex flex-col justify-between items-center">
                     <h3 class="text-7xl sm:text-3xl text-gray-800">${pokemon.name}</h3>
                     <p class="text-5xl md:text-base text-gray-800">Typ: ${pokemon.types.join(', ')}</p>

@@ -79,3 +79,11 @@
   .hide {
     display: none;
   }
+  .monster-scalup img{
+        width:100%;  
+        transition: all .6s ease-in-out;
+
+  }
+.monster-scalup img:hover{
+transform: scale(1.3); 
+    }
