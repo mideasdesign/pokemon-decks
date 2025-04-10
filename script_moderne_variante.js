@@ -10,7 +10,7 @@ async function init() {
 
 async function fetchBasePokemons() {
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=2`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=20`);
         const data = await response.json();
         console.log(data);
         return data.results;
@@ -98,12 +98,12 @@ async function searchPokemons() {
 }
 
 async function fetchPokemonSpeciesData(nameOrId) {
-    const resSpecies = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameOrId}`);
+    const resSpecies = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${nameOrId}/`);
     return await resSpecies.json();
 }
 
 async function fetchPokemonData(nameOrId) {
-    const resPkms = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}`);
+    const resPkms = await fetch(`https://pokeapi.co/api/v2/pokemon/${nameOrId}/`);
     const data = await resPkms.json();
     return {
         id: data.id,
@@ -121,21 +121,30 @@ function showSearchedPokemonDetails(pokemon, species) {
     modal.classList.remove('close');
 }
 
-function prevPic (index){
-    if(index > 0){
-        modalWindow(index -1)
+function prevPkm (pokemon, species){
+    if(species.id > 0){
+        fetchPokemonSpeciesData(species -1);
+        fetchPokemonData(pokemon -1);
     }
     else {
-            modalWindow(photos.length -1);
+        fetchPokemonSpeciesData(species -1);
+        fetchPokemonData(pokemon -1);
         }
 }
 
-function nextPic (index){
-    if(index < photos.length -1){
-        modalWindow(index +1);
+function nextPkm (pokemon, species){
+    if(species.id < species.length -1){
+        let newSpeciesId = species +1;
+        let newPokemonId = pokemon +1;
+        fetchPokemonSpeciesData(newSpeciesId);
+        fetchPokemonData(newPokemonId);
+
     }
     else {
-        modalWindow(0);
+        let newSpeciesId = species +1;
+        let newPokemonId = pokemon +1;
+        fetchPokemonSpeciesData(newSpeciesId);
+        fetchPokemonData(newPokemonId);
     }
 }
 

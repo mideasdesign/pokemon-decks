@@ -25,6 +25,9 @@ function getDetailedCardTemplate(pokemon, species) {
                     <h4 class="text-4xl sm:text-2xl">habitat:</h4> <span class="text-2xl text-gray-700">${species.habitat.name}</span>
                 </div>
             </div>
+            <div id="pagination" class="flex justify-between">
+                <button id="prevPkm" onclick="prevPkm(${pokemon.id}, ${species.id})" class="text-3xl text-gray-300"> < </button> <button class="text-3xl text-gray-300" onclick="nextPkm(${pokemon.id}, ${species.id})" id="nextPkm"> > </button>
+            </div>
         </div>
     `;
 }
