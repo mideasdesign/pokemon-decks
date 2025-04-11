@@ -86,18 +86,24 @@ async function fetchPokemonSpecies(id) {
     }
 };
 
-async function searchPokemons() {
-    document.getElementById('spinner').classList.remove('hide');
-    const searchRef = document.getElementById('search-input').value.toLowerCase().trim();
-    try {
-        const species = await fetchPokemonDataAndRender(searchRef);
-        const pokemon = await fetchPokemonDataAndRender(searchRef);
-        document.getElementById('spinner').classList.add('hide');
-        fetchPokemonDataAndRender(pokemon, species);
-    } catch (error) {
-        console.error('Error loading Pokémon data:', error);
+    function searchPokemons() {
+        const searchRef = document.getElementById('search-input').value.toLowerCase().trim();
+        const container = document.getElementById('pokemon-list');
+        if (searchRef.length < 3) {
+            container.innerHTML = '';
+            renderBaseCardPokemons();
+            return;
+        }
+        const filtered = allPokemons.filter(pkm => pkm.name.startsWith(searchRef));
+        container.innerHTML = '';
+        if (filtered.length > 0) {
+            filtered.forEach(pokemon => {
+                container.innerHTML += getBaseCardTemplate(pokemon);
+            });
+        } else {
+            container.innerHTML = `<p class="text-gray-700 text-xl">No Pokémon found.</p>`;
+        }
     }
-}
 
 async function fetchPokemonDataAndRender(id) {
     document.getElementById('spinner').classList.remove('hide');
