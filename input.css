@@ -86,4 +86,8 @@
   }
 .monster-scalup img:hover{
 transform: scale(1.3); 
-    }
+}
+.modal-open{
+    overflow: hidden;
+    height:100%;
+}

@@ -6,18 +6,18 @@ async function init() {
     const baseData = await fetchBasePokemons();
     await fetchBaseDataPokemons(baseData);
     renderBaseCardPokemons();
-}
+};
 
 async function fetchBasePokemons() {
     try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=20`);
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=12`);
         const data = await response.json();
         console.log(data);
         return data.results;
     } catch (error) {
         console.error('Error loading base data:', error);
     }
-}
+};
 
 async function fetchBaseDataPokemons(baseData) {
     const promises = baseData.map(async (pokemon) => {
@@ -33,15 +33,17 @@ async function fetchBaseDataPokemons(baseData) {
     });
     const newPokemons = await Promise.all(promises);
     allPokemons.push(...newPokemons);
-}
+};
 
 function renderBaseCardPokemons() {
+    document.getElementById('spinner').classList.remove('hide');
     const container = document.getElementById('pokemon-list');
     container.innerHTML = ''; 
     allPokemons.forEach(pokemon => {
         container.innerHTML += getBaseCardTemplate(pokemon);
+        document.getElementById('spinner').classList.add('hide');  
     });
-}
+};
 
 async function loadMorePokemons() {
     document.getElementById('spinner').classList.remove('hide');
@@ -58,15 +60,13 @@ async function loadMorePokemons() {
             id: detail.id,
         };
     });
-
     let newPokemons = await Promise.all(promises);
     allPokemons.push(...newPokemons);
     let container = document.getElementById('pokemon-list');
     newPokemons.forEach(pokemon => {
-        container.innerHTML += getBaseCardTemplate(pokemon);        
-        
+        container.innerHTML += getBaseCardTemplate(pokemon);  
+        document.getElementById('spinner').classList.add('hide');
     });
-    document.getElementById('spinner').classList.add('hide');
 };
 
 async function fetchPokemonSpecies(id) {
@@ -84,13 +84,15 @@ async function fetchPokemonSpecies(id) {
     } catch (error) {
         console.error('Error loading species data:', error);
     }
-}
+};
 
 async function searchPokemons() {
+    document.getElementById('spinner').classList.remove('hide');
     const searchRef = document.getElementById('search-input').value.toLowerCase().trim();
     try {
         const species = await fetchPokemonDataAndRender(searchRef);
         const pokemon = await fetchPokemonDataAndRender(searchRef);
+        document.getElementById('spinner').classList.add('hide');
         fetchPokemonDataAndRender(pokemon, species);
     } catch (error) {
         console.error('Error loading Pokémon data:', error);
@@ -98,18 +100,22 @@ async function searchPokemons() {
 }
 
 async function fetchPokemonDataAndRender(id) {
+    document.getElementById('spinner').classList.remove('hide');
     try {
         const pokemon = await fetchPokemonDetail(id);
         const species = await fetchPokemonSpeciesDetail(id);
         renderPokemonDetailCard(pokemon, species);
+        document.getElementById('spinner').classList.add('hide'); 
     } catch (error) {
         console.error('Error loading Pokémon data:', error);
     }
-}
+};
 
 async function fetchPokemonDetail(id) {
+    document.getElementById('spinner').classList.remove('hide');
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const data = await response.json();
+    document.getElementById('spinner').classList.add('hide'); 
     return {
         name: data.name,
         image: data.sprites.other["official-artwork"].front_default,
@@ -117,20 +123,21 @@ async function fetchPokemonDetail(id) {
         abilities: data.abilities.map(a => a.ability),
         id: data.id,
     };
-}
+    
+};
 
 async function fetchPokemonSpeciesDetail(id) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`);
     return await response.json();
-}
+};
 
 function renderPokemonDetailCard(pokemon, species) {
+    document.getElementById('spinner').classList.remove('hide');
     const container = document.getElementById('detail-card');
-    container.innerHTML = getDetailedCardTemplate(pokemon, species);
-    document.getElementById('pokemon-modal').classList.remove('close');
+    container.innerHTML = getDetailedCardTemplate(pokemon, species)
 }
 
 function modalOverlay(event){
-    let toggleRef = document.getElementById('pokemon-modal')
+    let toggleRef = document.getElementById('pokemon-modal');
     toggleRef.classList.toggle('close');
   };
