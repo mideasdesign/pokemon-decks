@@ -12,7 +12,6 @@ async function fetchBasePokemons() {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${pageOffset}&limit=12`);
         const data = await response.json();
-        console.log(data);
         return data.results;
     } catch (error) {
         console.error('Error loading base data:', error);
@@ -81,7 +80,6 @@ async function fetchPokemonSpecies(id) {
         detailContainer.innerHTML = getDetailedCardTemplate(pokemon, species);
         document.getElementById('spinner').classList.add('hide'); 
         modal.classList.remove('close');
-        console.log(species);
     } catch (error) {
         console.error('Error loading species data:', error);
     }
@@ -122,7 +120,7 @@ async function fetchPokemonDetail(id) {
         name: data.name,
         image: data.sprites.other["official-artwork"].front_default,
         types: data.types.map(t => t.type.name),
-        abilities: data.abilities.map(a => a.ability),
+        abilities: data.abilities.map(pkmsa => pkmsa.ability),
         id: data.id,
     };
     

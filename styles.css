@@ -468,6 +468,11 @@
       height: calc(var(--spacing) * 72);
     }
   }
+  .sm\:w-\[500px\] {
+    @media (width >= 40rem) {
+      width: 500px;
+    }
+  }
   .sm\:w-auto {
     @media (width >= 40rem) {
       width: auto;
