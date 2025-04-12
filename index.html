@@ -14,13 +14,13 @@
 <body onload="init()"> 
   <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-transparent">
     <div onclick="modalOverlay()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
-    <div class="z-[950] p-4 bg-gray-200 rounded-3xl sm:max-w-xl h:60vh w-full shadow-2xl" onclick="event.stopPropagation()">
+    <div class="z-[950] p-0 bg-gray-200 rounded-3xl sm:max-w-xl h:60vh w-full shadow-2xl" onclick="event.stopPropagation()">
       <div id="detail-card" class="p-3"></div>
     </div>
   </div>
-  <div id="spinner" class="w-full z-[950] px-4 h-full fixed top-0 flex flx-col justify-center items-center bg-transparent hide">
-    <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-30 w-auto" alt="Loading..." />
-    <p class="text-2xl mt-10 sm:text-xl">loading Pokémon</p>
+  <div id="spinner" class="w-full z-[950] px-4 h-full fixed top-0 flex flex-col justify-center items-center bg-transparent hide">
+    <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-36 w-auto rounded-6xl" alt="Loading..." />
+    <p class="text-2xl mt-10 sm:text-xl text-[var(--color-pkms-dark-blue)]">loading Pokémon</p>
   </div>
   <main id="overflow-hidden" class="z-[-300] flex flex-col justify-center items-center w-full px-4">
     <div class="flex justify-center items-center w-full px-4">
