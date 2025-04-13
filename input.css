@@ -101,6 +101,9 @@
 .ice, .flying{
     background-color: var(--color-ice);
 }
+.ground{
+    background-color: var(--color-ground);
+}
 .close{
     display: none;
 }
@@ -125,11 +128,11 @@
     display: none;
   }
   .monster-scalup img{
-        width:80%;  
-        transition: all .6s ease-in-out;
+    width:80%;  
+    transition: all .6s ease-in-out;
 
   }
-.monster-scalup img:hover{
+.monster-scalup:hover img{
 transform: scale(1.3); 
 }
 .modal-open{

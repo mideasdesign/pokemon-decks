@@ -15,13 +15,12 @@
     --container-5xl: 64rem;
     --text-xl: 1.25rem;
     --text-xl--line-height: calc(1.75 / 1.25);
-    --text-4xl: 2.25rem;
-    --text-4xl--line-height: calc(2.5 / 2.25);
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --radius-3xl: 1.5rem;
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --animate-spin: spin 1s linear infinite;
+    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -36,6 +35,7 @@
     --color-fairy: oklch(0.86 0.1009 337.48 / 78.95%);
     --color-fighting: oklch(0.66 0.1588 47.23 / 71%);
     --color-psychic: oklch(0.71 0.1953 346.66 / 77%);
+    --color-ground: oklch(0.68 0.1076 96.15 / 72.17%);
     --color-ghost: oklch(0.55 0.1005 301.16 / 78.56%);
     --color-ice: oklch(0.77 0.1132 221.54 / 77.25%);
     --color-pkms-yellow: oklch(0.86 0.1758 89.84);
@@ -217,6 +217,9 @@
   .z-\[0\] {
     z-index: 0;
   }
+  .z-\[1\] {
+    z-index: 1;
+  }
   .z-\[940\] {
     z-index: 940;
   }
@@ -371,11 +374,14 @@
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
-  .py-4 {
-    padding-block: calc(var(--spacing) * 4);
-  }
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
+  }
+  .pr-4 {
+    padding-right: calc(var(--spacing) * 4);
+  }
+  .pl-4 {
+    padding-left: calc(var(--spacing) * 4);
   }
   .text-center {
     text-align: center;
@@ -391,9 +397,6 @@
   }
   .font-3 {
     font-family: var(--font-3);
-  }
-  .font-4 {
-    font-family: var(--font-4);
   }
   .text-xl {
     font-size: var(--text-xl);
@@ -449,6 +452,13 @@
       }
     }
   }
+  .hover\:animate-pulse {
+    &:hover {
+      @media (hover: hover) {
+        animation: var(--animate-pulse);
+      }
+    }
+  }
   .hover\:cursor-pointer {
     &:hover {
       @media (hover: hover) {
@@ -489,35 +499,14 @@
       padding: calc(var(--spacing) * 4);
     }
   }
-  .sm\:font-0 {
-    @media (width >= 40rem) {
-      font-family: var(--font-0);
-    }
-  }
   .sm\:font-2 {
     @media (width >= 40rem) {
       font-family: var(--font-2);
     }
   }
-  .sm\:font-3 {
-    @media (width >= 40rem) {
-      font-family: var(--font-3);
-    }
-  }
-  .sm\:text-4xl {
-    @media (width >= 40rem) {
-      font-size: var(--text-4xl);
-      line-height: var(--tw-leading, var(--text-4xl--line-height));
-    }
-  }
   .md\:grid-cols-4 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
-  .md\:font-5 {
-    @media (width >= 48rem) {
-      font-family: var(--font-5);
     }
   }
 }
@@ -590,6 +579,9 @@
 .ice, .flying {
   background-color: var(--color-ice);
 }
+.ground {
+  background-color: var(--color-ground);
+}
 .close {
   display: none;
 }
@@ -618,7 +610,7 @@
   width: 80%;
   transition: all .6s ease-in-out;
 }
-.monster-scalup img:hover {
+.monster-scalup:hover img {
   transform: scale(1.3);
 }
 .modal-open {
@@ -746,6 +738,11 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
   }
 }
 @layer properties {

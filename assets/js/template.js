@@ -1,6 +1,6 @@
 function getBaseCardTemplate(pokemon) {
     return /* html */`
-        <div class="monster-scalup z-[0] card grid gap-4 border rounded-2xl border-gray-200 shadow-lg p-2  hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
+        <div class="monster-scalup z-[1] card grid gap-4 border rounded-2xl border-gray-200 shadow-lg p-2  hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
         <div class="rounded-2xl px-3 py-8 ${pokemon.types[0]} hover:cursor-pointer">  
                 <img src="${pokemon.image}" alt="${pokemon.name}" class="place-self-center">
                 <div class="flex flex-col justify-between items-center">
@@ -33,7 +33,7 @@ const entry = species.flavor_text_entries.find(lang => lang.language.name === "e
                 </div>
             </div>
             <div id="pagination" class="flex justify-between">
-                <button id="prevPkm" onclick="fetchPokemonDataAndRender(${pokemon.id - 1})" class="font-4 md:font-5 text-gray-800 hover:cursor-pointer"> < </button> <button class="font-4 sm:text-4xl text-gray-800 hover:cursor-pointer" onclick="fetchPokemonDataAndRender(${pokemon.id + 1})" id="nextPkm"> > </button>
+                <button id="prevPkm" onclick="fetchPokemonDataAndRender(${pokemon.id - 1})" class="font-3 pl-4 text-gray-800 hover:animate-pulse hover:cursor-pointer"> < </button> <button class="font-3 pr-4 text-gray-800 hover:animate-pulse hover:cursor-pointer" onclick="fetchPokemonDataAndRender(${pokemon.id + 1})" id="nextPkm"> > </button>
             </div>
         </div>
     `;
