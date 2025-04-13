@@ -48,6 +48,7 @@
   }
   .font-2 {
     font-size: var(--font-2);
+    line-height: normal;
   }
   .font-3 {
     font-size: var(--font-3);

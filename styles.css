@@ -301,6 +301,9 @@
   .cursor-not-allowed {
     cursor: not-allowed;
   }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
   .grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -547,6 +550,7 @@
 }
 .font-2 {
   font-size: var(--font-2);
+  line-height: normal;
 }
 .font-3 {
   font-size: var(--font-3);
