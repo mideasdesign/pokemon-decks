@@ -26,7 +26,7 @@ function getDetailedCardTemplate(pokemon, species) {
                 <img src="${pokemon.image}" alt="${pokemon.name}" class=" place-self-center w-full h-auto sm:h-72 sm:w-auto">
             <div class="bg-gray-200 rounded-2xl p-2 sm:p-4">
                 <h4 class="text-base my-5 sm:text-lg wrap-break-word">${flavorText}</h4>
-                <div class="grid grid-cols-2 justify-between gap-5 text-gray-800 break-normal wrap-break-word text-base sm:text-lg">
+                <div class="grid grid-cols-2 justify-between gap-5 text-gray-800 break-normal wrap-break-word text-base sm:text-base">
                     <h4 class=" ">generation:</h4> <span class=" text-gray-800 wrap-break-word">${species.generation.name}</span>
                     <h4 class=" ">abilities:</h4> <span class=" text-gray-800 wrap-break-word">${pokemon.abilities.join(', ')}</span>
                     <h4 class=" ">egg group:</h4> <span class=" text-gray-800 wrap-break-word">${species.egg_groups.map(egg => egg.name).join(', ')}</span>

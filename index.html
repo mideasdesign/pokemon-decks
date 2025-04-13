@@ -5,7 +5,7 @@
   <title>Pokémon</title>
     <script src="./assets/js/template.js"></script>
 <!--     <script src="./script.js"></script> -->
-    <script src="./script_moderne_variante.js"></script>
+    <script src="./script.js"></script>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
@@ -20,7 +20,7 @@
   </div>
   <div id="spinner" class="w-full z-[950] px-4 h-full fixed top-0 flex flex-col justify-center items-center bg-transparent hide">
     <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-36 w-auto rounded-6xl" alt="Loading..." />
-    <p class="text-base mt-10 sm:font-2 text-[var(--color-pkms-dark-blue)]">loading Pokémon</p>
+    <p class="text-base mt-10 sm:text-xl text-[var(--color-pkms-dark-blue)]">loading Pokémon</p>
   </div>
   <main id="overflow-hidden" class="z-[-300] flex flex-col justify-center items-center w-full px-4">
     <div class="flex justify-center items-center w-full px-4">
@@ -33,7 +33,7 @@
     </div>
     <div class="z-[0] flex flex-col justify-center items-center w-full my-9 px-4">
       <div id="pokemon-list" class="grid grid-cols-0 sm:grid-cols-2  md:grid-cols-4 gap-6 p-4 max-w-5xl"></div>
-      <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl font-1 shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more</button>
+      <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more</button>
     </div>
   </main>
 </body>
