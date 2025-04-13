@@ -158,7 +158,7 @@ async function fetchPokemonDetail(id) {
         name: data.name,
         image: data.sprites.other["official-artwork"].front_default,
         types: data.types.map(t => t.type.name),
-        abilities: data.abilities.map(pkmsa => pkmsa.ability),
+        abilities: data.abilities.map(pkmsa => pkmsa.ability.name),
         id: data.id,
     };
     
