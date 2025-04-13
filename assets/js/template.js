@@ -22,11 +22,11 @@ const entry = species.flavor_text_entries.find(lang => lang.language.name === "e
                 <span class="text-xl">#${species.id}</span>  
             </div>
                 <img src="${pokemon.image}" alt="${pokemon.name}" class=" place-self-center w-full h-auto sm:h-72 sm:w-auto">
-            <div class="bg-gray-200 rounded-2xl p-2">
+            <div class="bg-gray-200 rounded-2xl p-2 sm:p-4">
                 <h4 class="text-sm my-5 sm:text-xl">${flavorText}</h4>
                 <div class="grid grid-cols-2 justify-between gap-5 text-gray-800">
                     <h4 class="text-sm sm:text-xl">generation:</h4> <span class="text-sm sm:text-xl text-gray-800">${species.generation.name}</span>
-                    <h4 class="text-sm sm:text-xl">abilities:</h4> <span class="text-sm sm:text-xl text-gray-800">${pokemon.abilities.map(pkmsa => pkmsa.name).join(', ')}</span>
+                    <h4 class="text-sm sm:text-xl">abilities:</h4> <span class="text-sm sm:text-xl text-gray-800">${pokemon.abilities}</span>
                     <h4 class="text-sm sm:text-xl">egg group:</h4> <span class="text-sm sm:text-xl text-gray-800">${species.egg_groups.map(egg => egg.name).join(', ')}</span>
                     <h4 class="text-sm sm:text-xl">growth rate:</h4> <span class="text-sm sm:text-xl text-gray-800">${species.growth_rate.name}</span>
                     <h4 class="text-sm sm:text-xl">habitat:</h4> <span class="text-sm sm:text-xl text-gray-800">${species.habitat.name}</span>
