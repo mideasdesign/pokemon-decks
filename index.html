@@ -20,20 +20,20 @@
   </div>
   <div id="spinner" class="w-full z-[950] px-4 h-full fixed top-0 flex flex-col justify-center items-center bg-transparent hide">
     <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-36 w-auto rounded-6xl" alt="Loading..." />
-    <p class="font-0 mt-10 sm:font-2 text-[var(--color-pkms-dark-blue)]">loading Pokémon</p>
+    <p class="text-base mt-10 sm:font-2 text-[var(--color-pkms-dark-blue)]">loading Pokémon</p>
   </div>
   <main id="overflow-hidden" class="z-[-300] flex flex-col justify-center items-center w-full px-4">
     <div class="flex justify-center items-center w-full px-4">
       <img src="./assets/images/international_pokemon_logo.svg" class="h-40 w-auto my-8" alt=" Pokemon Logo">
     </div>
-    <div id="search" class="z-[0] flex flex-col justify-center items-center w-full">
-      <label for="search-input" class="text-gray-800 font-1 mr-4">search your Pokémon</label>
-      <input type="text" oninput="searchPokemons()" id="search-input" class="px-4 py-2 rounded-xl font-0 text-gray-700 border  border-gray-200 mr-4 mb-5 shadow-md p-2" placeholder="enter a Pokémon name">
-      <button class="px-4 py-2 rounded-xl text-font-0 shadow-md p-2  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-125 hover:duration-300 ease-in-out" onclick="searchPokemons()">search</button>
+    <div id="search" class="z-[0] flex flex-col sm:flex-row justify-center items-center w-full">
+      <label for="search-input" class="text-[var(--color-pkms-dark-blue)] text-base mr-4">search your Pokémon</label>
+      <input type="text" oninput="searchPokemons()" id="search-input" class="px-4 py-2 rounded-xl text-base text-gray-700 border border-gray-200 mr-4 mb-5 sm:mb-0 shadow-md" placeholder="enter a Pokémon name">
+      <button class="px-4 py-2 rounded-xl text-base shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-125 hover:duration-300 ease-in-out" onclick="searchPokemons()">search</button>
     </div>
     <div class="z-[0] flex flex-col justify-center items-center w-full my-9 px-4">
       <div id="pokemon-list" class="grid grid-cols-0 sm:grid-cols-2  md:grid-cols-4 gap-6 p-4 max-w-5xl"></div>
-      <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md p-2  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-125 hover:duration-300 ease-in-out">load more</button>
+      <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl font-1 shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more</button>
     </div>
   </main>
 </body>
