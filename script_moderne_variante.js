@@ -12,7 +12,7 @@ async function init() {
 
 async function fetchAllPokemonNames() {
     try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000');
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1310');
         const data = await response.json();
         allPokemonNames = data.results;
     } catch (error) {
@@ -125,12 +125,14 @@ async function searchPokemons() {
             id: detail.id,
         };
     }));
-
     pkmsContainer.innerHTML = '';
     detailed.forEach(pokemon => {
+        const alreadyExists = allPokemons.some(p => p.id === pokemon.id);
+        if (!alreadyExists) {
+            allPokemons.push(pokemon);
+        }
         pkmsContainer.innerHTML += getBaseCardTemplate(pokemon);
     });
-
     document.getElementById('spinner').classList.add('hide');
 }
 

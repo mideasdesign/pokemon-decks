@@ -8,31 +8,18 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-gray-200: oklch(92.8% 0.006 264.531);
+    --color-gray-500: oklch(55.1% 0.027 264.364);
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-gray-800: oklch(27.8% 0.033 256.848);
     --spacing: 0.25rem;
-    --container-xl: 36rem;
     --container-5xl: 64rem;
-    --text-sm: 0.875rem;
-    --text-sm--line-height: calc(1.25 / 0.875);
-    --text-base: 1rem;
-    --text-base--line-height: calc(1.5 / 1);
-    --text-lg: 1.125rem;
-    --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
     --text-xl--line-height: calc(1.75 / 1.25);
-    --text-2xl: 1.5rem;
-    --text-2xl--line-height: calc(2 / 1.5);
-    --text-3xl: 1.875rem;
-    --text-3xl--line-height: calc(2.25 / 1.875);
     --text-4xl: 2.25rem;
     --text-4xl--line-height: calc(2.5 / 2.25);
-    --text-5xl: 3rem;
-    --text-5xl--line-height: 1;
     --radius-xl: 0.75rem;
     --radius-2xl: 1rem;
     --radius-3xl: 1.5rem;
-    --radius-4xl: 2rem;
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --animate-spin: spin 1s linear infinite;
     --default-transition-duration: 150ms;
@@ -53,6 +40,17 @@
     --color-ice: oklch(0.77 0.1132 221.54 / 77.25%);
     --color-pkms-yellow: oklch(0.86 0.1758 89.84);
     --color-pkms-dark-blue: oklch(0.35 0.098 264.56);
+    --font--3: clamp(0.5425rem, 0.5086rem + 0.1695vw, 0.64rem);
+    --font--2: clamp(0.651rem, 0.5992rem + 0.2591vw, 0.8rem);
+    --font--1: clamp(0.7813rem, 0.7052rem + 0.3804vw, 1rem);
+    --font-0: clamp(0.9375rem, 0.8288rem + 0.5435vw, 1.25rem);
+    --font-1: clamp(1.125rem, 0.9728rem + 0.7609vw, 1.5625rem);
+    --font-2: clamp(1.35rem, 1.1402rem + 1.0489vw, 1.9531rem);
+    --font-3: clamp(1.62rem, 1.3343rem + 1.4285vw, 2.4414rem);
+    --font-4: clamp(1.944rem, 1.5587rem + 1.9265vw, 3.0518rem);
+    --font-5: clamp(2.3328rem, 1.8174rem + 2.5772vw, 3.8147rem);
+    --font-6: clamp(2.7994rem, 2.1145rem + 3.4244vw, 4.7684rem);
+    --font-7: clamp(3.3592rem, 2.4545rem + 4.5239vw, 5.9605rem);
   }
 }
 @layer base {
@@ -355,9 +353,6 @@
   .p-0 {
     padding: calc(var(--spacing) * 0);
   }
-  .p-1 {
-    padding: calc(var(--spacing) * 1);
-  }
   .p-2 {
     padding: calc(var(--spacing) * 2);
   }
@@ -367,8 +362,8 @@
   .p-4 {
     padding: calc(var(--spacing) * 4);
   }
-  .p-6 {
-    padding: calc(var(--spacing) * 6);
+  .px-3 {
+    padding-inline: calc(var(--spacing) * 3);
   }
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
@@ -376,40 +371,46 @@
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
   }
-  .text-2xl {
-    font-size: var(--text-2xl);
-    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
   }
-  .text-3xl {
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
+  .py-8 {
+    padding-block: calc(var(--spacing) * 8);
   }
-  .text-4xl {
-    font-size: var(--text-4xl);
-    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  .text-center {
+    text-align: center;
   }
-  .text-5xl {
-    font-size: var(--text-5xl);
-    line-height: var(--tw-leading, var(--text-5xl--line-height));
+  .font-0 {
+    font-family: var(--font-0);
   }
-  .text-base {
-    font-size: var(--text-base);
-    line-height: var(--tw-leading, var(--text-base--line-height));
+  .font-1 {
+    font-family: var(--font-1);
   }
-  .text-lg {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
+  .font-2 {
+    font-family: var(--font-2);
   }
-  .text-sm {
-    font-size: var(--text-sm);
-    line-height: var(--tw-leading, var(--text-sm--line-height));
+  .font-3 {
+    font-family: var(--font-3);
+  }
+  .font-4 {
+    font-family: var(--font-4);
   }
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
   }
+  .break-normal {
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .wrap-break-word {
+    overflow-wrap: break-word;
+  }
   .text-\[var\(--color-pkms-dark-blue\)\] {
     color: var(--color-pkms-dark-blue);
+  }
+  .text-gray-500 {
+    color: var(--color-gray-500);
   }
   .text-gray-700 {
     color: var(--color-gray-700);
@@ -478,11 +479,6 @@
       width: auto;
     }
   }
-  .sm\:max-w-xl {
-    @media (width >= 40rem) {
-      max-width: var(--container-xl);
-    }
-  }
   .sm\:grid-cols-2 {
     @media (width >= 40rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -493,10 +489,19 @@
       padding: calc(var(--spacing) * 4);
     }
   }
-  .sm\:text-3xl {
+  .sm\:font-0 {
     @media (width >= 40rem) {
-      font-size: var(--text-3xl);
-      line-height: var(--tw-leading, var(--text-3xl--line-height));
+      font-family: var(--font-0);
+    }
+  }
+  .sm\:font-2 {
+    @media (width >= 40rem) {
+      font-family: var(--font-2);
+    }
+  }
+  .sm\:font-3 {
+    @media (width >= 40rem) {
+      font-family: var(--font-3);
     }
   }
   .sm\:text-4xl {
@@ -505,23 +510,49 @@
       line-height: var(--tw-leading, var(--text-4xl--line-height));
     }
   }
-  .sm\:text-base {
-    @media (width >= 40rem) {
-      font-size: var(--text-base);
-      line-height: var(--tw-leading, var(--text-base--line-height));
-    }
-  }
-  .sm\:text-xl {
-    @media (width >= 40rem) {
-      font-size: var(--text-xl);
-      line-height: var(--tw-leading, var(--text-xl--line-height));
-    }
-  }
   .md\:grid-cols-4 {
     @media (width >= 48rem) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
+  .md\:font-5 {
+    @media (width >= 48rem) {
+      font-family: var(--font-5);
+    }
+  }
+}
+.font--3 {
+  font-size: var(--font--3);
+}
+.font--2 {
+  font-size: var(--font--2);
+}
+.font--1 {
+  font-size: var(--font--1);
+}
+.font-0 {
+  font-size: var(--font-0);
+}
+.font-1 {
+  font-size: var(--font-1);
+}
+.font-2 {
+  font-size: var(--font-2);
+}
+.font-3 {
+  font-size: var(--font-3);
+}
+.font-4 {
+  font-size: var(--font-4);
+}
+.font-5 {
+  font-size: var(--font-5);
+}
+.font-6 {
+  font-size: var(--font-6);
+}
+.font-7 {
+  font-size: var(--font-7);
 }
 .grass, .bug {
   background-color: var(--color-grass);
