@@ -27,7 +27,7 @@
 --color-fairy: oklch(0.86 0.1009 337.48 / 78.95%);
 --color-fighting: oklch(0.66 0.1588 47.23 / 71%);
 --color-psychic: oklch(0.71 0.1953 346.66 / 77%);
---color-ground: oklch(0.68 0.1076 96.15 / 72.17%);
+--color-ground: oklch(0.68 0.1084 96.92);
 --color-ghost: oklch(0.55 0.1005 301.16 / 78.56%);
 --color-ice: oklch(0.77 0.1132 221.54 / 77.25%);
 --color-pkms-yellow: oklch(0.86 0.1758 89.84);
@@ -97,7 +97,7 @@
     to   { transform: rotate(360deg); }
   }
   
-  .hide {
+  .hide, .hide-me {
     display: none;
   }
   .monster-scalup img{

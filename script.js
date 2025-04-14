@@ -52,7 +52,9 @@ function renderBaseCardPokemons() {
     pokemonContainer.innerHTML = ''; 
     allPokemons.forEach(pokemon => {
         pokemonContainer.innerHTML += getBaseCardTemplate(pokemon);
-        document.getElementById('spinner').classList.add('hide');  
+        document.getElementById('spinner').classList.add('hide'); 
+        document.getElementById('back-to-overview').classList.add('hide-me');
+        document.getElementById('more').classList.remove('hide-me'); 
     });
 };
 
@@ -162,7 +164,9 @@ async function searchPokemons() {
       if (!allPokemons.some(p => p.id === pokemon.id)) {
         allPokemons.push(pokemon);
       }
-      listContainer.innerHTML += getBaseCardTemplate(pokemon);
+        document.getElementById('back-to-overview').classList.remove('hide-me');
+        document.getElementById('more').classList.add('hide-me');
+        listContainer.innerHTML += getBaseCardTemplate(pokemon);
     });
   }
   

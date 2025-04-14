@@ -39,7 +39,8 @@
         <section class="max-w-6xl flex flex-col justify-center items-center mt-5">
             <div id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4 gap-4">
             </div>
-            <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more</button>
+            <button onclick="loadMorePokemons()" id="more" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more </button>
+            <button onclick="init()" id="back-to-overview" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out hide-me">back to overview</button>
         </section>
     </main>
     <script src="./assets/js/template.js"></script>
