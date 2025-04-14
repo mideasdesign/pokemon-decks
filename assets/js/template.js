@@ -1,7 +1,21 @@
 function getBaseCardTemplate(pokemon) {
     return /* html */`
         <div class="monster-scalup z-[1] card grid gap-4 border rounded-2xl border-gray-200 shadow-lg p-2  hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
-        <div class="rounded-2xl px-3 grid grid-cols-1 justify-between py-8 ${pokemon.types[0]} hover:cursor-pointer">  
+            <div class="rounded-2xl px-3 grid grid-cols-1 justify-between py-8 ${pokemon.types[0]} hover:cursor-pointer">  
+                <img src="${pokemon.image}" alt="${pokemon.name}" class="place-self-center">
+                <div class="flex flex-col justify-between items-center">
+                    <h3 class="text-lg sm:text-lg md:text-lg text-gray-800 text-center">${pokemon.name}</h3>
+                    <p class="text-base[length:--text-base] text-gray-800 text-center">Typ: ${pokemon.types.join(', ')}</p>
+                </div>
+            </div>  
+        </div>
+    `;
+}
+
+function getSearchCardTemplate(pokemon) {
+    return /* html */`
+        <div class="monster-scalup z-[1] card grid gap-4 border rounded-2xl border-gray-200 shadow-lg p-2  hover:cursor-pointer" onclick="fetchPokemonSpecies(${pokemon.id})">
+            <div class="rounded-2xl px-3 grid grid-cols-1 justify-between py-8 ${pokemon.types[0]} hover:cursor-pointer">  
                 <img src="${pokemon.image}" alt="${pokemon.name}" class="place-self-center">
                 <div class="flex flex-col justify-between items-center">
                     <h3 class="text-lg sm:text-lg md:text-lg text-gray-800 text-center">${pokemon.name}</h3>
@@ -23,7 +37,7 @@ function getDetailedCardTemplate(pokemon, species) {
                 <span class="text-xl">${species.name} </span>
                 <span class="text-lg pt-2 sm:pt-3 justify-self-end">#${species.id}</span>  
             </div>
-                <img src="${pokemon.image}" alt="${pokemon.name}" class=" place-self-center w-full h-auto sm:h-72 sm:w-auto">
+            <img src="${pokemon.image}" alt="${pokemon.name}" class=" place-self-center w-full h-auto sm:h-72 sm:w-auto">
             <div class="bg-gray-200 rounded-2xl p-2 sm:p-4">
                 <h4 class="text-base my-5 sm:text-lg wrap-break-word">${flavorText}</h4>
                 <div class="grid grid-cols-2 justify-between gap-5 text-gray-800 break-normal wrap-break-word text-base sm:text-base">

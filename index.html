@@ -31,8 +31,8 @@
       <input type="text" oninput="searchPokemons()" id="search-input" class="px-4 py-2 rounded-xl text-base text-gray-700 border border-gray-200 mr-4 mb-5 sm:mb-0 shadow-md" placeholder="enter a Pokémon name">
       <button class="px-4 py-2 rounded-xl text-base shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-125 hover:duration-300 ease-in-out" onclick="searchPokemons()">search</button>
     </div>
-    <div class="z-[0] flex flex-col justify-center items-center w-full my-9 px-4">
-      <div id="pokemon-list" class="grid grid-cols-0 sm:grid-cols-2  md:grid-cols-4 gap-6 p-4 max-w-5xl"></div>
+    <div class="z-[0] gird grid-cols-1 justify-center items-center w-full my-9 px-4">
+      <div id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-5 p-4 max-w-6xl"></div>
       <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more</button>
     </div>
   </main>

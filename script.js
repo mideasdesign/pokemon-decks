@@ -56,6 +56,16 @@ function renderBaseCardPokemons() {
     });
 };
 
+function renderSearchCardPokemons() {
+    document.getElementById('spinner').classList.remove('hide');
+    let pokemonContainer = document.getElementById('pokemon-list');
+    pokemonContainer.innerHTML = ''; 
+    allPokemons.forEach(pokemon => {
+        pokemonContainer.innerHTML += getBaseCardTemplate(pokemon);
+        document.getElementById('spinner').classList.add('hide');  
+    });
+};
+
 async function loadMorePokemons() {
     document.getElementById('spinner').classList.remove('hide');
     pageOffset += 20;
@@ -99,42 +109,66 @@ async function fetchPokemonSpecies(id) {
 };
 
 async function searchPokemons() {
-    const searchRef = document.getElementById('search-input').value.toLowerCase().trim();
-    let pkmsContainer = document.getElementById('pokemon-list');
-    if (searchRef.length < 3) {
-        pkmsContainer.innerHTML = '';
-        renderBaseCardPokemons();
-        return;
-    }
-    document.getElementById('spinner').classList.remove('hide');
-    const matches = allPokemonNames.filter(pkms => pkms.name.startsWith(searchRef));
-    if (matches.length === 0) {
-        pkmsContainer.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
-        document.getElementById('spinner').classList.add('hide');
-        return;
-    }
-    let limited = matches.slice(0, 12); 
-    let detailed = await Promise.all(limited.map(async (poke) => {
-        let res = await fetch(poke.url);
-        let detail = await res.json();
-        return {
-            name: detail.name,
-            image: detail.sprites.other["official-artwork"].front_default,
-            types: detail.types.map(pkmst => pkmst.type.name),
-            abilities: detail.abilities.map(pkmsa => pkmsa.ability.name),
-            id: detail.id,
-        };
+    const searchRef = getSearchInput();
+    const listContainer = document.getElementById('pokemon-list');
+    if (!isValidSearch(searchRef)) return resetSearchResults(listContainer);
+    toggleSpinner(true);
+    const matches = findPokemonMatches(searchRef);
+    if (matches.length === 0) return showNoResults(listContainer);
+    const pokemons = await fetchPokemonDetails(matches.slice(0, 12));
+    renderSearchResults(pokemons, listContainer);
+    toggleSpinner(false);
+  }
+  
+  function getSearchInput() {
+    return document.getElementById('search-input').value.toLowerCase().trim();
+  }
+  
+  function isValidSearch(search) {
+    return search.length >= 3;
+  }
+  
+  function resetSearchResults(listContainer) {
+    listContainer.innerHTML = '';
+    renderBaseCardPokemons();
+  }
+  
+  function showNoResults(container) {
+    clistContainer.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
+    toggleSpinner(false);
+  }
+  
+  function findPokemonMatches(query) {
+    return allPokemonNames.filter(p => p.name.startsWith(query));
+  }
+  
+  async function fetchPokemonDetails(pokemonList) {
+    return await Promise.all(pokemonList.map(async (poke) => {
+      const res = await fetch(poke.url);
+      const detail = await res.json();
+      return {
+        name: detail.name,
+        image: detail.sprites.other["official-artwork"].front_default,
+        types: detail.types.map(t => t.type.name),
+        abilities: detail.abilities.map(a => a.ability.name),
+        id: detail.id,
+      };
     }));
-    pkmsContainer.innerHTML = '';
-    detailed.forEach(pokemon => {
-        const alreadyExists = allPokemons.some(p => p.id === pokemon.id);
-        if (!alreadyExists) {
-            allPokemons.push(pokemon);
-        }
-        pkmsContainer.innerHTML += getBaseCardTemplate(pokemon);
+  }
+  
+  function renderSearchResults(pokemons, listContainer) {
+    listContainer.innerHTML = '';
+    pokemons.forEach(pokemon => {
+      if (!allPokemons.some(p => p.id === pokemon.id)) {
+        allPokemons.push(pokemon);
+      }
+      listContainer.innerHTML += getBaseCardTemplate(pokemon);
     });
-    document.getElementById('spinner').classList.add('hide');
-}
+  }
+  
+  function toggleSpinner(show) {
+    document.getElementById('spinner').classList.toggle('hide', !show);
+  }
 
 async function fetchPokemonDataAndRender(id) {
     document.getElementById('spinner').classList.remove('hide');
