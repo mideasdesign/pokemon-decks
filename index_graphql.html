@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <style>
-      .monster-scalup>img{
-        transition: all 1s ease-in-out;
-  }
-  .monster-scalup>img:hover{
-    transform: scale(1.3); 
-  }
-  img{
-    width:200px;  
-    height:200px;
-  }
-  </style>
+  <title>Pokémon</title>
+    <script src="./assets/js/template.js"></script>
+<!--     <script src="./script.js"></script> -->
+    <script src="./script.js"></script>
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+    <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-  <div class=".monster-scalup">
-    <img src="./assets/images/pokemon-full-ball.svg" alt="">
+<body onload="init()"> 
+  <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-transparent">
+    <div onclick="modalOverlay()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
+    <div class="z-[950] p-0 bg-gray-200 rounded-3xl sm:w-[500px] h:60vh w-full shadow-2xl" onclick="event.stopPropagation()">
+      <div id="detail-card" class="p-3"></div>
+    </div>
   </div>
+  <div id="spinner" class="w-full z-[950] px-4 h-full fixed top-0 flex flex-col justify-center items-center bg-transparent hide">
+    <img src="./assets/images/pokemon_ball.svg" class="animate-spin h-36 w-auto rounded-6xl" alt="Loading..." />
+    <p class="text-base mt-10 sm:text-xl text-[var(--color-pkms-dark-blue)]">loading Pokémon</p>
+  </div>
+  <main id="overflow-hidden" class="z-[-300] flex flex-col justify-center items-center w-full px-4">
+    <div class="flex justify-center items-center w-full px-4">
+      <img src="./assets/images/international_pokemon_logo.svg" class="h-40 w-auto my-8" alt=" Pokemon Logo">
+    </div>
+    <div id="search" class="z-[0] flex flex-col sm:flex-row justify-center items-center w-full">
+      <label for="search-input" class="text-[var(--color-pkms-dark-blue)] text-base mr-4">search your Pokémon</label>
+      <input type="text" oninput="searchPokemons()" id="search-input" class="px-4 py-2 rounded-xl text-base text-gray-700 border border-gray-200 mr-4 mb-5 sm:mb-0 shadow-md" placeholder="enter a Pokémon name">
+      <button class="px-4 py-2 rounded-xl text-base shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-125 hover:duration-300 ease-in-out" onclick="searchPokemons()">search</button>
+    </div>
+    <div class="z-[0] gird grid-cols-1 justify-center items-center w-full my-9 px-4">
+      <div id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-5 p-4 max-w-6xl"></div>
+      <button onclick="loadMorePokemons()" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more</button>
+    </div>
+  </main>
 </body>
 </html>

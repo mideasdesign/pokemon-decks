@@ -133,8 +133,8 @@ async function searchPokemons() {
     renderBaseCardPokemons();
   }
   
-  function showNoResults(container) {
-    clistContainer.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
+  function showNoResults(listContainer) {
+    listContainer.innerHTML = '<p class="text-center text-gray-500 text-3xl">No Pokémon found.</p>';
     toggleSpinner(false);
   }
   
@@ -143,8 +143,8 @@ async function searchPokemons() {
   }
   
   async function fetchPokemonDetails(pokemonList) {
-    return await Promise.all(pokemonList.map(async (poke) => {
-      const res = await fetch(poke.url);
+    return await Promise.all(pokemonList.map(async (pkm) => {
+      const res = await fetch(pkm.url);
       const detail = await res.json();
       return {
         name: detail.name,
