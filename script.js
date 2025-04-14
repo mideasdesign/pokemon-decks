@@ -31,84 +31,116 @@ async function fetchBasePokemons() {
 };
 
 async function fetchBaseDataPokemons(baseData) {
-    const promises = baseData.map(async (pokemon) => {
-        const response = await fetch(pokemon.url);
-        const detail = await response.json();
-        return {
-            name: detail.name,
-            image: detail.sprites.other["official-artwork"].front_default,
-            types: detail.types.map(pkmst => pkmst.type.name),
-            abilities: detail.abilities.map(pkmsa => pkmsa.ability.name),
-            id: detail.id,
-        };
-    });
-    const newPokemons = await Promise.all(promises);
-    allPokemons.push(...newPokemons);
-};
+    const newPokemons = await loadPokemonDetails(baseData);
+    addToAllPokemons(newPokemons);
+}
+
+
 
 function renderBaseCardPokemons() {
-    document.getElementById('spinner').classList.remove('hide');
-    let pokemonContainer = document.getElementById('pokemon-list');
-    pokemonContainer.innerHTML = ''; 
-    allPokemons.forEach(pokemon => {
-        pokemonContainer.innerHTML += getBaseCardTemplate(pokemon);
-        document.getElementById('spinner').classList.add('hide'); 
-        document.getElementById('back-to-overview').classList.add('hide-me');
-        document.getElementById('more').classList.remove('hide-me'); 
-    });
-};
+    toggleSpinner(true);
+    const container = document.getElementById('pokemon-list');
+    container.innerHTML = '';
+    appendPokemonsToList(allPokemons);
+    toggleUIElements();
+    toggleSpinner(false);
+}
+
+function toggleUIElements() {
+    document.getElementById('back-to-overview').classList.add('hide-me');
+    document.getElementById('more').classList.remove('hide-me');
+}
+
+function renderBaseCard(pokemon, container) {
+    container.innerHTML += getBaseCardTemplate(pokemon);
+}
+
+function toggleOverviewButtons() {
+    document.getElementById('back-to-overview').classList.add('hide-me');
+    document.getElementById('more').classList.remove('hide-me');
+}
+
+function showSpinner(show) {
+    document.getElementById('spinner').classList.toggle('hide', !show);
+}
 
 function renderSearchCardPokemons() {
-    document.getElementById('spinner').classList.remove('hide');
-    let pokemonContainer = document.getElementById('pokemon-list');
-    pokemonContainer.innerHTML = ''; 
-    allPokemons.forEach(pokemon => {
-        pokemonContainer.innerHTML += getBaseCardTemplate(pokemon);
-        document.getElementById('spinner').classList.add('hide');  
-    });
-};
+    toggleSpinner(true);
+    const container = document.getElementById('pokemon-list');
+    container.innerHTML = '';
+    appendPokemonsToList(allPokemons);
+    toggleSpinner(false);
+}
 
 async function loadMorePokemons() {
-    document.getElementById('spinner').classList.remove('hide');
+    toggleSpinner(true);
     pageOffset += 20;
     const baseData = await fetchBasePokemons();
-    const promises = baseData.map(async (pokemon) => {
-        const response = await fetch(pokemon.url);
-        const detail = await response.json();
-        return {
-            name: detail.name,
-            image: detail.sprites.other["official-artwork"].front_default,
-            types: detail.types.map(pkmst => pkmst.type.name),
-            abilities: detail.abilities.map(pkmsa => pkmsa.ability.name),
-            id: detail.id,
-        };
-    });
-    let newPokemons = await Promise.all(promises);
+    const newPokemons = await fetchPokemonDetails(baseData);
     allPokemons.push(...newPokemons);
-    let pokemonContainer = document.getElementById('pokemon-list');
-    newPokemons.forEach(pokemon => {
-        pokemonContainer.innerHTML += getBaseCardTemplate(pokemon);  
-        document.getElementById('spinner').classList.add('hide');
+    appendPokemonsToList(newPokemons);
+    toggleSpinner(false);
+}
+
+function appendPokemonsToList(pokemons) {
+    const container = document.getElementById('pokemon-list');
+    pokemons.forEach(pokemon => {
+        container.innerHTML += getBaseCardTemplate(pokemon);
     });
-};
+}
+
+async function loadPokemonDetails(baseData) {
+    return await Promise.all(baseData.map(fetchSinglePokemon));
+}
+
+async function fetchSinglePokemon(pokemon) {
+    const res = await fetch(pokemon.url);
+    const detail = await res.json();
+    return {
+        name: detail.name,
+        image: detail.sprites.other["official-artwork"].front_default,
+        types: detail.types.map(t => t.type.name),
+        abilities: detail.abilities.map(a => a.ability.name),
+        id: detail.id,
+    };
+}
+
+function addToAllPokemons(pokemons) {
+    allPokemons.push(...pokemons);
+}
+
+function appendToGrid(pokemons) {
+    const container = document.getElementById('pokemon-list');
+    pokemons.forEach(pkm => container.innerHTML += getBaseCardTemplate(pkm));
+}
 
 async function fetchPokemonSpecies(id) {
-   document.getElementById('spinner').classList.remove('hide');
-   document.body.classList.add('modal-open');
+    toggleSpinner(true);
+    document.body.classList.add('modal-open');
     try {
-        let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
-        let species = await response.json();
-        let pokemon = allPokemons.find(pkms => pkms.id == id);
-        let modal = document.getElementById('pokemon-modal');
-        let detailContainer = document.getElementById('detail-card');
-        detailContainer.innerHTML = getDetailedCardTemplate(pokemon, species);
-        document.getElementById('spinner').classList.add('hide'); 
-        modal.classList.remove('close');
-    } catch (error) {
-        let pkmsContainer = document.getElementById('pokemon-list');
-        pkmsContainer.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
+        const species = await fetchPokemonSpeciesDetail(id);
+        const pokemon = findPokemonById(id);
+        renderSpeciesDetail(pokemon, species);
+    } catch (e) {
+        showSpeciesError();
     }
-};
+    toggleSpinner(false);
+}
+
+function findPokemonById(id) {
+    return allPokemons.find(pkm => pkm.id == id);
+}
+
+function renderSpeciesDetail(pokemon, species) {
+    const modal = document.getElementById('pokemon-modal');
+    document.getElementById('detail-card').innerHTML = getDetailedCardTemplate(pokemon, species);
+    modal.classList.remove('close');
+}
+
+function showSpeciesError() {
+    const el = document.getElementById('pokemon-list');
+    el.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
+}
 
 async function searchPokemons() {
     const searchRef = getSearchInput();
