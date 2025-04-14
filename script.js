@@ -35,8 +35,6 @@ async function fetchBaseDataPokemons(baseData) {
     addToAllPokemons(newPokemons);
 }
 
-
-
 function renderBaseCardPokemons() {
     toggleSpinner(true);
     const container = document.getElementById('pokemon-list');
@@ -154,57 +152,57 @@ async function searchPokemons() {
     toggleSpinner(false);
   }
   
-  function getSearchInput() {
+function getSearchInput() {
     return document.getElementById('search-input').value.toLowerCase().trim();
-  }
+}
   
-  function isValidSearch(search) {
+function isValidSearch(search) {
     return search.length >= 3;
-  }
+}
   
-  function resetSearchResults(listContainer) {
-    listContainer.innerHTML = '';
+function resetSearchResults(listContainer) {
+listContainer.innerHTML = '';
     renderBaseCardPokemons();
-  }
-  
-  function showNoResults(listContainer) {
+}
+
+function showNoResults(listContainer) {
     listContainer.innerHTML = '<p class="text-center text-gray-500 text-3xl">No Pokémon found.</p>';
     toggleSpinner(false);
-  }
-  
-  function findPokemonMatches(query) {
+}
+
+function findPokemonMatches(query) {
     return allPokemonNames.filter(p => p.name.startsWith(query));
-  }
+}
   
-  async function fetchPokemonDetails(pokemonList) {
+async function fetchPokemonDetails(pokemonList) {
     return await Promise.all(pokemonList.map(async (pkm) => {
-      const res = await fetch(pkm.url);
-      const detail = await res.json();
-      return {
+        const res = await fetch(pkm.url);
+        const detail = await res.json();
+        return {
         name: detail.name,
         image: detail.sprites.other["official-artwork"].front_default,
         types: detail.types.map(t => t.type.name),
         abilities: detail.abilities.map(a => a.ability.name),
         id: detail.id,
-      };
+        };
     }));
-  }
+}
   
-  function renderSearchResults(pokemons, listContainer) {
+function renderSearchResults(pokemons, listContainer) {
     listContainer.innerHTML = '';
     pokemons.forEach(pokemon => {
-      if (!allPokemons.some(p => p.id === pokemon.id)) {
+        if (!allPokemons.some(p => p.id === pokemon.id)) {
         allPokemons.push(pokemon);
-      }
+        }
         document.getElementById('back-to-overview').classList.remove('hide-me');
         document.getElementById('more').classList.add('hide-me');
         listContainer.innerHTML += getBaseCardTemplate(pokemon);
     });
-  }
+}
   
-  function toggleSpinner(show) {
-    document.getElementById('spinner').classList.toggle('hide', !show);
-  }
+function toggleSpinner(show) {
+document.getElementById('spinner').classList.toggle('hide', !show);
+}
 
 async function fetchPokemonDataAndRender(id) {
     document.getElementById('spinner').classList.remove('hide');
@@ -250,3 +248,6 @@ function modalOverlay(event){
     document.body.classList.remove('modal-open');
     toggleRef.classList.toggle('close');
   };
+function reload(){
+    location.reload();
+}
