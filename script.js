@@ -1,3 +1,4 @@
+let allBasePokemons = [];
 let allPokemons = [];
 let allPokemonNames = [];
 let pokemonSpecies = [];
@@ -10,15 +11,20 @@ async function init() {
     renderBaseCardPokemons();
 }
 
+function extractIdFromUrl(url) {
+    const parts = url.split('/').filter(Boolean);
+    return parseInt(parts[parts.length - 1]);
+  }
+
 async function fetchAllPokemonNames() {
     try {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1310');
-        const data = await response.json();
-        allPokemonNames = data.results;
+      const response = await fetch('https://pokeapi.co/api/v2/pokemon?offset=0&limit=1310');
+      const data = await response.json();
+      allPokemonNames = data.results.filter(p => extractIdFromUrl(p.url) <= 1017);
     } catch (error) {
-        console.error('Error fetching all Pokémon names:', error);
+      console.error('Error fetching all Pokémon names:', error);
     }
-}
+  }
 
 async function fetchBasePokemons() {
     try {
@@ -36,13 +42,18 @@ async function fetchBaseDataPokemons(baseData) {
 }
 
 function renderBaseCardPokemons() {
-    toggleSpinner(true);
     const container = document.getElementById('pokemon-list');
     container.innerHTML = '';
-    appendPokemonsToList(allPokemons);
-    toggleUIElements();
-    toggleSpinner(false);
-}
+    document.getElementById('spinner').classList.remove('hide');
+
+    const sorted = [...allBasePokemons].sort((a, b) => a.id - b.id);
+    sorted.forEach(pokemon => {
+      container.innerHTML += getBaseCardTemplate(pokemon);
+    });
+    document.getElementById('spinner').classList.add('hide');
+    document.getElementById('back-to-overview').classList.add('hide-me');
+    document.getElementById('more').classList.remove('hide-me');
+  }
 
 function toggleUIElements() {
     document.getElementById('back-to-overview').classList.add('hide-me');
@@ -104,7 +115,8 @@ async function fetchSinglePokemon(pokemon) {
 }
 
 function addToAllPokemons(pokemons) {
-    allPokemons.push(...pokemons);
+    allBasePokemons.push(...pokemons); 
+    allPokemons.push(...pokemons);  
 }
 
 function appendToGrid(pokemons) {
@@ -113,17 +125,21 @@ function appendToGrid(pokemons) {
 }
 
 async function fetchPokemonSpecies(id) {
+    if (id > 1017) return; 
     toggleSpinner(true);
     document.body.classList.add('modal-open');
     try {
-        const species = await fetchPokemonSpeciesDetail(id);
-        const pokemon = findPokemonById(id);
-        renderSpeciesDetail(pokemon, species);
-    } catch (e) {
-        showSpeciesError();
+      const species = await fetchPokemonSpeciesDetail(id);
+      const pokemon = allPokemons.find(pkms => pkms.id == id);
+      const modal = document.getElementById('pokemon-modal');
+      const detailContainer = document.getElementById('detail-card');
+      detailContainer.innerHTML = getDetailedCardTemplate(pokemon, species);
+      modal.classList.remove('close');
+    } catch (error) {
+      showNoResults(document.getElementById('pokemon-list'));
     }
     toggleSpinner(false);
-}
+  }
 
 function findPokemonById(id) {
     return allPokemons.find(pkm => pkm.id == id);
@@ -137,7 +153,7 @@ function renderSpeciesDetail(pokemon, species) {
 
 function showSpeciesError() {
     const el = document.getElementById('pokemon-list');
-    el.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
+    el.innerHTML = '<p class="text-center text-gray-500 text-xl">No Image or Data found.</p>';
 }
 
 async function searchPokemons() {
@@ -166,7 +182,7 @@ listContainer.innerHTML = '';
 }
 
 function showNoResults(listContainer) {
-    listContainer.innerHTML = '<p class="text-center text-gray-500 text-3xl">No Pokémon found.</p>';
+    listContainer.innerHTML = '<p class="text-center text-gray-500 text-3xl">No Image or Data found.</p>';
     toggleSpinner(false);
 }
 
@@ -213,7 +229,7 @@ async function fetchPokemonDataAndRender(id) {
         document.getElementById('spinner').classList.add('hide'); 
     } catch (error) {
         let pkmsContainer = document.getElementById('pokemon-list');
-        pkmsContainer.innerHTML = '<p class="text-center text-gray-500">No Pokémon found.</p>';
+        pkmsContainer.innerHTML = '<p class="text-center text-gray-500 text-2xl ">No Image or Data found.</p>';
     }
 };
 

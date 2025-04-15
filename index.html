@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pokémon</title>
     <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body onload="init()">
-    <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-transparent">
+    <div id="pokemon-modal" class="w-full z-[950] px-4 h-full fixed top-0 flex justify-center items-center close bg-gray-800/40">
         <div onclick="modalOverlay()" class="absolute w-full h-full z-[940] top-0 left-0"></div>
-        <div class="z-[950] p-0 bg-gray-200 rounded-3xl sm:w-[500px] h:60vh w-full shadow-2xl"
+        <div class="z-[950] p-0 bg-gray-200 rounded-3xl h-[525px] sm:h-[820px] sm:w-[500px] shadow-2xl"
         onclick="event.stopPropagation()">
         <div id="detail-card" class="p-3"></div>
         </div>
@@ -36,11 +36,11 @@
                 <button class="px-4 py-2 rounded-xl text-base shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-125 hover:duration-300 ease-in-out" onclick="searchPokemons()">search</button>
             </div>
         </section>
-        <section class="max-w-6xl flex flex-col justify-center items-center mt-5">
+        <section class="max-w-6xl flex flex-col sm:justify-center sm:items-center mt-5">
             <div id="pokemon-list" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4 gap-4">
             </div>
             <button onclick="loadMorePokemons()" id="more" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out">load more </button>
-            <button onclick="reload()" id="back-to-overview" class="px-4 py-2 my-8 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out hide-me">back to overview</button>
+            <button onclick="reload()" id="back-to-overview" class="px-4 py-2 my-8 mx-4 rounded-xl text-xl shadow-md  bg-[var(--color-pkms-yellow)] text-[var(--color-pkms-dark-blue)] hover:cursor-pointer hover:scale-140 hover:duration-300 ease-in-out hide-me">back to overview</button>
         </section>
     </main>
     <script src="./assets/js/template.js"></script>

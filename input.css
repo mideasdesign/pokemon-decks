@@ -105,10 +105,16 @@
     transition: all .6s ease-in-out;
 
   }
+  .modal-open{
+    overflow: visible;
+  }
 .monster-scalup:hover img{
 transform: scale(1.3); 
 }
-.modal-open{
+@media(width > 640px)
+{
+    .modal-open{
     overflow: hidden;
     height:100%;
+    }
 }
